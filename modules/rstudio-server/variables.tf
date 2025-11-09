@@ -15,7 +15,7 @@ variable "droplet_image" {
   description = ""
   default     = "ubuntu-24-04-x64"
 }
-variable "ssh_key_name" {
+variable "rstudio_ssh_key_name" {
   description = ""
   default     = "finalrstudio"
 }
@@ -35,8 +35,3 @@ variable "github_username" {
   default     = "gonzalezben81"
 }
 
-variable "rstudio_version" {
-  description = ""
-  default     = "2025.09.2-418"
-
-}
