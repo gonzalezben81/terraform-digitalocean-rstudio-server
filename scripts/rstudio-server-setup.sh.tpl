@@ -41,7 +41,7 @@ write_files:
     owner: root:root
     permissions: '0644'
     content: |
-      map \$http_upgrade \$connection_upgrade {
+      map $http_upgrade $connection_upgrade {
           default upgrade;
           ''      close;
       }
@@ -57,8 +57,8 @@ write_files:
           location /shiny/ {
               proxy_pass http://127.0.0.1:3838/;
               proxy_http_version 1.1;
-              proxy_set_header Upgrade \$http_upgrade;
-              proxy_set_header Connection \$connection_upgrade;
+              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Connection $connection_upgrade;
               rewrite ^(/shiny/[^/]+)$ \$1/ permanent;
           }
 
