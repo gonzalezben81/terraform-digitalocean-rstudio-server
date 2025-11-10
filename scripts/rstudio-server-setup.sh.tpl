@@ -60,7 +60,7 @@ runcmd:
   - sudo su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""                                                                                    
   
   ### Install latest verison of R Shiny-Server
-  - wget wget https://download3.rstudio.org/ubuntu-20.04/x86_64/shiny-server-1.5.23.1030-amd64.deb
+  - wget https://download3.rstudio.org/ubuntu-20.04/x86_64/shiny-server-1.5.23.1030-amd64.deb
   - sudo gdebi -n shiny-server*.deb
   - echo "Shiny-Server had been installed on your server"
   
@@ -83,6 +83,7 @@ runcmd:
   - sudo R CMD javareconf
   
   ##Adjust the slugs to work with /rstudio /shiny
+  - nginx -t
   - systemctl restart nginx    
   
 write_files:
@@ -102,7 +103,7 @@ write_files:
     
   - path: /etc/nginx/sites-available/default 
     content: |
-      map $http_upgrade $connection_upgrade {
+      map \$http_upgrade \$connection_upgrade {
           default upgrade;
           ''      close;
       }
