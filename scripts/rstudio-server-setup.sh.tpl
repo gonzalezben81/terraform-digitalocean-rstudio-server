@@ -115,7 +115,6 @@ runcmd:
             return 302 /rstudio/;
         }
     }
-EOF
   - systemctl restart nginx    
   
 write_files:
