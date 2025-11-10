@@ -82,6 +82,41 @@ runcmd:
   ##Update where R expects to find various Java files
   - sudo R CMD javareconf
   
+  ##Adjust the slugs to work with /rstudio /shiny
+  # --- Configure Nginx reverse proxy ---
+  - |
+    cat > /etc/nginx/sites-available/default <<'EOF'
+    map $http_upgrade $connection_upgrade {
+      default upgrade;
+      ''      close;
+    }
+
+    server {
+        listen 80;
+        server_name _;
+
+        location /shiny/ {
+            proxy_pass http://127.0.0.1:3838/;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            rewrite ^(/shiny/[^/]+)$ $1/ permanent;
+        }
+
+        location /rstudio/ {
+            proxy_pass http://127.0.0.1:8787/;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+        }
+
+        # Optional: redirect root to /rstudio/
+        location = / {
+            return 302 /rstudio/;
+        }
+    }
+    EOF  
+  
 write_files:
   - path: /var/www/html/index.html
     content: |
