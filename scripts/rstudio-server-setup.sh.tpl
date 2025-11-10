@@ -115,7 +115,8 @@ runcmd:
             return 302 /rstudio/;
         }
     }
-    EOF  
+EOF
+  - systemctl restart nginx    
   
 write_files:
   - path: /var/www/html/index.html
