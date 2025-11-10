@@ -23,6 +23,7 @@ packages:
   - libcurl4-gnutls-dev
   - libxml2-dev
   - libssl-dev
+  - libfontconfig1-dev 
   
 runcmd:
   - apt-get update
@@ -80,5 +81,20 @@ runcmd:
 
   ##Update where R expects to find various Java files
   - sudo R CMD javareconf
+  
+write_files:
+  - path: /var/www/html/index.html
+    content: |
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <title>Welcome to Your Rstudio/Shiny Server Droplet!</title>
+      </head>
+      <body>
+          <h1>Hello, DigitalOcean!</h1>
+          <p>This page is served by Nginx which is running on your droplet.</p>
+      </body>
+      </html>
+    permissions: '0644'  
 
 final_message: "The system is finally up, and the Rstudio server is running on port 8787!"
