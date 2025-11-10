@@ -1,7 +1,7 @@
 
 
 # Create the DigitalOcean Droplet
-resource "digitalocean_droplet" "rstudio_media_server" {
+resource "digitalocean_droplet" "rstudio_server" {
   name   = var.droplet_name # Replace with your preferred droplet name
   region = var.droplet_region # Replace with your preferred region
   size   = var.droplet_size   # Choose a size suitable for your application
