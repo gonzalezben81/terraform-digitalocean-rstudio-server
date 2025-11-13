@@ -1,4 +1,7 @@
-
+# Configure the DigitalOcean Provider
+provider "digitalocean" {
+  token = var.do_token
+}
 
 # Create the DigitalOcean Droplet
 resource "digitalocean_droplet" "rstudio_server" {
