@@ -1,5 +1,6 @@
 module "rstudio-shiny-server" {
   source = "./modules/rstudio-shiny-server"
+  do_token = var.do_token
 
   droplet_name   = var.droplet_name # Replace with your preferred droplet name
   droplet_region = var.droplet_region # Replace with your preferred region
