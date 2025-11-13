@@ -2,11 +2,13 @@
 package_update: true
 package_upgrade: false
 
+###Adds the user to the server
 users:
   - name: ${user_name}
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     shell: /bin/bash
 
+###Installs the necessary packages
 packages:
   - gdebi-core
   - net-tools
@@ -21,6 +23,7 @@ packages:
   - libssl-dev
   - libfontconfig1-dev
 
+###Modifies the index.html page
 write_files:
   - path: /var/www/html/index.html
     owner: root:root
@@ -36,7 +39,7 @@ write_files:
           <p>This page is served by Nginx which is running on your droplet.</p>
       </body>
       </html>
-
+###Modifies the site-available configuration file to allow pretty URLs for rstudio and shiny
   - path: /etc/nginx/sites-available/default
     owner: root:root
     permissions: '0644'
@@ -74,6 +77,7 @@ write_files:
           }
       }
 
+###Install Rstudio and Shiny Server
 runcmd:
   - apt-get update -y
   - apt update -qq
